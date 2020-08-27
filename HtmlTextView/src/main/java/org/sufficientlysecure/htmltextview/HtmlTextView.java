@@ -18,6 +18,7 @@ package org.sufficientlysecure.htmltextview;
 
 import android.content.Context;
 import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.AttributeSet;
 
 import androidx.annotation.NonNull;
@@ -92,10 +93,17 @@ public class HtmlTextView extends JellyBeanSpanFixTextView {
      *                    HtmlLocalImageGetter and HtmlRemoteImageGetter
      */
     public void setHtml(@NonNull String html, @Nullable Html.ImageGetter imageGetter) {
-        setText(HtmlFormatter.formatHtml(html, imageGetter, clickableTableSpan, drawTableLinkSpan, onClickATagListener,indent, removeTrailingWhiteSpace));
+        setText(HtmlFormatter.formatHtml(html, imageGetter, clickableTableSpan, drawTableLinkSpan, onClickATagListener, indent, removeTrailingWhiteSpace));
 
         // make links work
         setMovementMethod(LocalLinkMovementMethod.getInstance());
+    }
+
+    public void setHtml(@NonNull String html, @Nullable Html.ImageGetter imageGetter, LinkMovementMethod linkMovementMethod) {
+        setText(HtmlFormatter.formatHtml(html, imageGetter, clickableTableSpan, drawTableLinkSpan, onClickATagListener, indent, removeTrailingWhiteSpace));
+
+        // make links work
+        setMovementMethod(linkMovementMethod);
     }
 
     /**
